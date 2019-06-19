@@ -1,0 +1,19 @@
+{% extends 'views/main/base.html' %}
+
+{% block content %}
+<p>{{tasks.pk}}</p>
+<hr>
+<ul>
+    <p>{{tasks.task_name}}</p>
+    <p>Description: {{tasks.task_description}}</p>
+    <a href="{% url 'newSubTask' pk=tasks.pk%}" class="top-menu"><span class="glyphicon glyphicon-plus"></span>Add Sub-Task</a>
+    <br>
+    <p>Sub-Task</p>
+            {% for subTask in subTasks %}
+                {% if subTask.subtask_creator.task_id == tasks.task_id %}
+                    <li>{{subTask.subtask_name}}</li>
+                        <ul>Description: {{subTask.subtask_description}}-assigned to: {{subTask.subtask_assign_to}}</ul>
+                {% endif %}   
+            {% endfor %}
+</ul>
+{% endblock %}

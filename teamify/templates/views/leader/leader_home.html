@@ -1,0 +1,20 @@
+{% extends 'views/main/base.html' %}
+
+{% block content %}
+    <h1>leader</h1>
+    <a href="{% url 'newTask' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span>New Task</a>
+    <hr>
+    {% for task in tasks %}
+    <ul>
+        <li><a href="{% url 'task_info' pk=task.pk %}">{{task.task_name}}</a></a>
+            <ul>
+                {% for subTask in subTasks %}
+                    {% if subTask.subtask_creator.task_id == task.task_id %}
+                        <li>{{subTask.subtask_name}}</li>
+                    {% endif %}   
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+    {% endfor %}
+{% endblock %}

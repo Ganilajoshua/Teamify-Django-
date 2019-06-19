@@ -1,0 +1,17 @@
+{% extends 'views/main/base.html' %}
+
+{% block content %}
+    {% for task in tasks %}
+    <ul class="list-unstyled">
+        <li>{{task.task_name}} {{task.task_id}}
+            <ul>
+                {% for subTask in subTasks %}
+                    {% if subTask.subtask_creator.task_id == task.task_id %}
+                        <li>{{subTask.subtask_name}}</li>
+                    {% endif %}   
+                {% endfor %}
+            </ul>
+        </li>
+    </ul>
+    {% endfor %}
+{% endblock %}
