@@ -2,8 +2,12 @@
 
 {% block content %}
 <h1>Teamify</h1>
-
-<p><a href="leader/home">Leader Page</a></p>
-<p><a href="member/home">Member Page</a></p>
-
+    {% if user.is_authenticated %}
+        Hi {{ user.username }}
+        <p><a href="leader/home">Leader Page</a></p>
+        <p><a href="member/home">Member Page</a></p>
+        <p><a href="{% url 'logout' %}">logout</a></p>
+    {% else %}
+    <a href="{% url 'login' %}">login</a>
+    {% endif %}
 {% endblock %}

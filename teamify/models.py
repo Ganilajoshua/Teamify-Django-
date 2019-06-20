@@ -24,7 +24,7 @@ class subTask(models.Model):
     subtask_creator = models.ForeignKey(Task,to_field='task_id', db_column="task_id", on_delete=models.CASCADE)
     subtask_name = models.CharField(max_length=200)
     subtask_description = models.TextField()
-    subtask_assign_to = models.IntegerField()
+    subtask_assign_to = models.ForeignKey(settings.AUTH_USER_MODEL,to_field='id', db_column="subtask_assign_to", on_delete=models.CASCADE)
     subtask_created_date = models.DateTimeField(default=timezone.now)
 
     def publish(self):

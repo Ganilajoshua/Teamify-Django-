@@ -2,19 +2,26 @@
 
 {% block content %}
     <h1>leader</h1>
-    <a href="{% url 'newTask' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span>New Task</a>
-    <hr>
-    {% for task in tasks %}
-    <ul>
-        <li><a href="{% url 'task_info' pk=task.pk %}">{{task.task_name}}</a></a>
-            <ul>
-                {% for subTask in subTasks %}
-                    {% if subTask.subtask_creator.task_id == task.task_id %}
-                        <li>{{subTask.subtask_name}}</li>
-                    {% endif %}   
-                {% endfor %}
-            </ul>
-        </li>
-    </ul>
-    {% endfor %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'newTask' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span>New Task</a>
+        <hr>
+        {% for task in tasks %}
+        <ul>
+            <li><a href="{% url 'task_info' pk=task.pk %}">{{task.task_name}}</a></a>
+                <ul>
+                    {% for subTask in subTasks %}
+                        {% if subTask.subtask_creator.task_id == task.task_id %}
+                            <li>{{subTask.subtask_name}}</li>
+                            <a class="btn btn-default" href="{% url 'subtask_remove' pk=subTask.pk %}"><span class="glyphicon glyphicon-remove"></span></a>
+                            <a class="btn btn-default" href="{% url 'subtask_edit' pk=subTask.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        {% endif %}   
+                    {% endfor %}
+                </ul>
+            </li>
+        </ul>
+        {% endfor %}
+    {% else %}
+        <h1>You are not logged-in!</h1>
+        <a href="{% url 'login' %}">login</a>
+    {% endif %}
 {% endblock %}

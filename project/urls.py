@@ -21,4 +21,5 @@ from django.contrib.auth import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('teamify.urls')),
+    path('', include('django.contrib.auth.urls')),
 ]
